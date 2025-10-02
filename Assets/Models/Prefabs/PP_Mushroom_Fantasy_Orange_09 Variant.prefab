@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PP_Mushroom_Fantasy_Orange_09 Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 7570405467501425085, guid: 0ab22827d0f3f0b40a97e9430d684283, type: 3}
+      propertyPath: m_TagString
+      value: PickUp
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7570405467501425084, guid: 0ab22827d0f3f0b40a97e9430d684283, type: 3}
     m_RemovedGameObjects: []

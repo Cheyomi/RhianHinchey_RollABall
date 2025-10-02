@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour //This is the script that controls
     void SetCountText() //This is the method for updating the count text displayed on screen
     {
         countText.text = "Count: " + count.ToString(); //Update the count text on screen with the current count of pickups collected
-        if (count >= 12) //If the amount of pickups collected is  12 or more, display the win text on screen, and destroy the enemy.
+        if (count >= 7) //If the amount of pickups collected is  12 or more, display the win text on screen, and destroy the enemy.
         {
             winTextObject.SetActive(true); //(setting win text to be visible)
             Destroy(GameObject.FindGameObjectWithTag("Enemy")); //(destroying the enemy)
