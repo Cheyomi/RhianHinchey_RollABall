@@ -32,13 +32,6 @@ public class PlayerController : MonoBehaviour //This is the script that controls
         winTextObject.SetActive(false); //Hide the win text when it's not needed
     }
 
-    // This function is called when a move input is detected.
-    void OnMove(UnityEngine.InputSystem.InputValue movementValue)
-    {
-        Vector2 movementVector = movementValue.Get<Vector2>();
-        movementX = movementVector.x; //Stores horizontal input
-        movementY = movementVector.y; //Stores vertical input
-    }
 
     void SetCountText() //This is the method for updating the count text displayed on screen
     {
@@ -50,14 +43,25 @@ public class PlayerController : MonoBehaviour //This is the script that controls
         }
     }
 
-    //fixed update is called a fixed amount of times
+
     private void FixedUpdate()
     {
-        //move the player based on input
-        Vector3 movement = new Vector3(movementX, 0.0f, movementY);
-        rb.AddForce(movement * speed); //apply force to move the player
+        float moveX = Input.GetAxis("Horizontal"); // A/D or Left/Right
+        float moveZ = Input.GetAxis("Vertical");   // W/S or Up/Down
 
-        CheckGrounded(); //a method that checks if the player is touching the ground
+        Vector3 camForward = Camera.main.transform.forward;
+        Vector3 camRight = Camera.main.transform.right;
+
+        camForward.y = 0;
+        camRight.y = 0;
+        camForward.Normalize();
+        camRight.Normalize();
+
+        Vector3 moveDirection = camForward * moveZ + camRight * moveX;
+
+        rb.AddForce(moveDirection * speed);
+
+        CheckGrounded();
     }
 
     private void OnTriggerEnter(Collider other) //When the player collides with another object (tagged as pickup or enemy)
@@ -84,7 +88,7 @@ public class PlayerController : MonoBehaviour //This is the script that controls
             winTextObject.GetComponent<TMP_Text>().text = "You Lose!"; //changes the text to say "You lose!" instead
         }
     }
-    
+
     private void CheckGrounded() //The method that checks if the player is touching the ground
     {
         RaycastHit hit; //cast a ray downwards to check if the player is on the ground
@@ -100,19 +104,18 @@ public class PlayerController : MonoBehaviour //This is the script that controls
     }
 
     void OnJump() //this handles jumping when the player presses the jump button
+    {
+        if (isGrounded) //Only jump if the player is on the ground (Prevents double jumping)
         {
-            if (isGrounded) //Only jump if the player is on the ground (Prevents double jumping)
-            {
-                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); //apply an upward force to jump
-            }
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); //apply an upward force to jump
         }
+    }
 
     void Update() //Update runs every frame
     {
-        if(Input.GetKeyDown(KeyCode.Space)) //If the player presses the spacebar
+        if (Input.GetKeyDown(KeyCode.Space)) //If the player presses the spacebar
         {
             OnJump(); //Call the jump function!
         }
     }
 }
-
