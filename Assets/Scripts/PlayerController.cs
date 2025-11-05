@@ -36,11 +36,6 @@ public class PlayerController : MonoBehaviour //This is the script that controls
     void SetCountText() //This is the method for updating the count text displayed on screen
     {
         countText.text = "Count: " + count.ToString(); //Update the count text on screen with the current count of pickups collected
-        if (count >= 7) //If the amount of pickups collected is  12 or more, display the win text on screen, and destroy the enemy.
-        {
-            winTextObject.SetActive(true); //(setting win text to be visible)
-            Destroy(GameObject.FindGameObjectWithTag("Enemy")); //(destroying the enemy)
-        }
     }
 
 
@@ -70,23 +65,9 @@ public class PlayerController : MonoBehaviour //This is the script that controls
         {
             other.gameObject.SetActive(false);  //disables the pickup object
             count++;  //adds one to the count/score
-
-            //Add XP to the XP system so long as it exists
-            if (xpSystem != null)
-            {
-                xpSystem.AddXP(10);  //This is the amount of XP rewarded (adjustable)
-            }
-
             SetCountText();
         }
 
-        //Checks if the player touches an enemy (lose condition)
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            Destroy(gameObject); //Destroys the player
-            winTextObject.SetActive(true); //Set the win text to visible, but
-            winTextObject.GetComponent<TMP_Text>().text = "You Lose!"; //changes the text to say "You lose!" instead
-        }
     }
 
     private void CheckGrounded() //The method that checks if the player is touching the ground

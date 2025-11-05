@@ -7,6 +7,22 @@ public class MenuManager : MonoBehaviour
     public Image creditsImage;
     public Button backButton;
 
+    public Image settingsImage;
+
+    public Button FullscreenToggle;
+    public Button FullscreenDisable;
+
+    public void EnableFullscreen()
+    {
+        Screen.fullScreen = true;
+    }
+
+    public void DisableFullscreen()
+    {
+        Screen.fullScreen = false;
+    }
+
+
     public void HideCredits()
     {
         creditsImage.gameObject.SetActive(false);
@@ -17,6 +33,18 @@ public class MenuManager : MonoBehaviour
     {
             creditsImage.gameObject.SetActive(true);
             backButton.gameObject.SetActive(true);
+    }
+
+    public void HideSettings()
+    {
+        settingsImage.gameObject.SetActive(false);
+        backButton.gameObject.SetActive(false);
+    }
+
+    public void ShowSettings()
+    {
+        settingsImage.gameObject.SetActive(true);
+        backButton.gameObject.SetActive(true);
     }
 
 
@@ -44,6 +72,7 @@ public class MenuManager : MonoBehaviour
             if (creditsImage.gameObject.activeSelf)
             {
                 HideCredits();
+                HideSettings();
             }
             else
             {
@@ -54,12 +83,6 @@ public class MenuManager : MonoBehaviour
             }
 
         }
-    }
-
-    private void Start()
-    {
-        creditsImage.gameObject.SetActive(false);
-        backButton.gameObject.SetActive(false);
     }
 }
 
