@@ -11,15 +11,20 @@ public class MenuManager : MonoBehaviour
 
     public Button FullscreenToggle;
     public Button FullscreenDisable;
+    public Image FullscreenImageCheck;
+    public Image FullscreenImageX;
+    public Slider slider;
 
     public void EnableFullscreen()
     {
         Screen.fullScreen = true;
+        Debug.Log ("Fullscreen Enabled");
     }
 
     public void DisableFullscreen()
     {
         Screen.fullScreen = false;
+        Debug.Log("Fullscreen Disabled");
     }
 
 
@@ -27,6 +32,8 @@ public class MenuManager : MonoBehaviour
     {
         creditsImage.gameObject.SetActive(false);
         backButton.gameObject.SetActive(false);
+
+        Debug.Log("Back button click registered");
     }
 
     public void ShowCredits()
@@ -39,12 +46,25 @@ public class MenuManager : MonoBehaviour
     {
         settingsImage.gameObject.SetActive(false);
         backButton.gameObject.SetActive(false);
+        FullscreenImageCheck.gameObject.SetActive(false);
+        FullscreenImageX.gameObject.SetActive(false);
+
+        slider.gameObject.SetActive(false);
     }
 
     public void ShowSettings()
     {
         settingsImage.gameObject.SetActive(true);
         backButton.gameObject.SetActive(true);
+        FullscreenToggle.gameObject.SetActive(true);
+        FullscreenDisable.gameObject.SetActive(true);
+        FullscreenImageCheck.gameObject.SetActive(true);
+        FullscreenImageX.gameObject.SetActive(true);
+        slider.gameObject.SetActive(true);
+
+
+
+        Debug.Log ("Settings Opened");
     }
 
 
