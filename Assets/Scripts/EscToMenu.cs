@@ -3,13 +3,13 @@ using UnityEngine.SceneManagement;
 
 public class EscToMenu : MonoBehaviour
 {
-    // Update is called once per frame
+    bool paused = false;
+
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (paused == true)
         {
-            SceneManager.LoadScene("Main Menu");
+
         }
-        
     }
 }

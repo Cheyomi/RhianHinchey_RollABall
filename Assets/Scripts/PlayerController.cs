@@ -29,7 +29,6 @@ public class PlayerController : MonoBehaviour //This is the script that controls
         count = 0; //Initializes the count to 0 
 
         SetCountText(); //A method that is called to update the count displayed on screen
-        winTextObject.SetActive(false); //Hide the win text when it's not needed
     }
 
 
