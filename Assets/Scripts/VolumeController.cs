@@ -4,25 +4,23 @@ using UnityEngine.UI;
 public class VolumeController : MonoBehaviour
 {
     public Slider volumeSlider;    
-    public AudioSource musicSource;   
-    public float startingVolume = 0.4f; 
+    public AudioSource musicAudioSource;   
 
     void Start()
     {
-        volumeSlider.value = startingVolume;
-        AudioListener.volume = startingVolume;
+        float savedVolume = PlayerPrefs.GetFloat("Volume", 1f);
 
-        if (musicSource != null)
-            musicSource.volume = startingVolume;
+        volumeSlider.value = savedVolume;
+        musicAudioSource.volume = savedVolume;
 
-        volumeSlider.onValueChanged.AddListener(SetVolume);
+
+        volumeSlider.onValueChanged.AddListener(ChangeVolume);
     }
 
-    void SetVolume(float value)
+    void ChangeVolume(float value)
     {
-        AudioListener.volume = value;
+        musicAudioSource.volume = value;
+        PlayerPrefs.SetFloat("Volume", value);
 
-        if (musicSource != null)
-            musicSource.volume = value;
     }
 }

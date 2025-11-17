@@ -2,100 +2,84 @@ using UnityEngine;
 using TMPro;
 
 
-//Comments are for personal educational purposes, so I can learn and understand the code
-public class PlayerController : MonoBehaviour //This is the script that controls player movement
+public class PlayerController : MonoBehaviour
 {
-    //These are private variables, when it's private that means only this script can access these things
-    private Rigidbody rb; //The players Rigidbody component
-    private int count; //Keeps track of the count/score. (This is the amount of pickups collected)
-    private float movementX; //Stores horizontal movement input
-    private float movementY; //Stores vertical movement input
-    private bool isGrounded; //Checks if the player is grounded (on/touching the ground)
+    private Rigidbody rb;
+    private int count;
+    private bool isGrounded;
 
-    //When it's public, these can be accessed by other scripts and seen in the Unity Inspector!
-    public float speed = 0; //This is the movement speed of the player
-    public float jumpForce = 4f; //This is how high the player can jump
-    public TMP_Text countText; //This is the UI text that displays the number of collected items
-    public GameObject winTextObject; //This is the UI text that appears when the player wins
+    public float speed = 5f;
+    public float jumpForce = 5f;
+    public TMP_Text countText;
 
-
-    // Reference to the XP system
-    public XPSystem xpSystem;
-
-    // Start is called before the first frame update.
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        count = 0; //Initializes the count to 0 
-
-        SetCountText(); //A method that is called to update the count displayed on screen
+        count = 0;
+        UpdateCountText();
     }
 
-
-    void SetCountText() //This is the method for updating the count text displayed on screen
+    void UpdateCountText()
     {
-        countText.text = "Count: " + count.ToString(); //Update the count text on screen with the current count of pickups collected
+        countText.text = "Count: " + count.ToString();
     }
 
+    void Update()
+    {
+        if (Time.timeScale > 0f &&  Input.GetKeyDown(KeyCode.Space))
+        {
+            Jump();
+        }
+    }
 
     private void FixedUpdate()
     {
-        float moveX = Input.GetAxis("Horizontal"); // A/D or Left/Right
-        float moveZ = Input.GetAxis("Vertical");   // W/S or Up/Down
+        float moveX = Input.GetAxis("Horizontal");
+        float moveZ = Input.GetAxis("Vertical");
 
-        Vector3 camForward = Camera.main.transform.forward;
+        Vector3 camFoward = Camera.main.transform.forward;
         Vector3 camRight = Camera.main.transform.right;
-
-        camForward.y = 0;
-        camRight.y = 0;
-        camForward.Normalize();
+        camFoward.y = 0f;
+        camRight.y = 0f;
+        camFoward.Normalize();
         camRight.Normalize();
 
-        Vector3 moveDirection = camForward * moveZ + camRight * moveX;
+        Vector3 moveDirection = camFoward * moveZ + camRight * moveX;
 
-        rb.AddForce(moveDirection * speed);
+        rb.AddForce(moveDirection * speed * Time.fixedDeltaTime, ForceMode.VelocityChange);
 
         CheckGrounded();
     }
 
-    private void OnTriggerEnter(Collider other) //When the player collides with another object (tagged as pickup or enemy)
+    private void Jump()
     {
-        if (other.gameObject.CompareTag("PickUp"))
+        if (isGrounded)
         {
-            other.gameObject.SetActive(false);  //disables the pickup object
-            count++;  //adds one to the count/score
-            SetCountText();
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
-
     }
 
-    private void CheckGrounded() //The method that checks if the player is touching the ground
+    private void CheckGrounded()
     {
-        RaycastHit hit; //cast a ray downwards to check if the player is on the ground
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, 0.5f))
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1.1f))
         {
-            isGrounded = true; //if the ray hits something, player is grounded
+            isGrounded = true;
         }
         else
         {
-            isGrounded = false; //otherwise the player is in the air
+            isGrounded = false;
         }
-
     }
 
-    void OnJump() //this handles jumping when the player presses the jump button
+    private void OnTriggerEnter(Collider other)
     {
-        if (isGrounded) //Only jump if the player is on the ground (Prevents double jumping)
+        if (other.gameObject.CompareTag("PickUp"))
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); //apply an upward force to jump
+            other.gameObject.SetActive(false);
+            count++;
+            UpdateCountText();
         }
     }
 
-    void Update() //Update runs every frame
-    {
-        if (Input.GetKeyDown(KeyCode.Space)) //If the player presses the spacebar
-        {
-            OnJump(); //Call the jump function!
-        }
-    }
 }
