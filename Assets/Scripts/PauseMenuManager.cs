@@ -106,4 +106,16 @@ public class PauseMenuManager : MonoBehaviour
 
         Debug.Log("Settings Opened");
     }
+
+    public void EnableFullscreen()
+    {
+        Screen.fullScreen = true;
+        Debug.Log("Fullscreen Enabled");
+    }
+
+    public void DisableFullscreen()
+    {
+        Screen.fullScreen = false;
+        Debug.Log("Fullscreen Disabled");
+    }
 }

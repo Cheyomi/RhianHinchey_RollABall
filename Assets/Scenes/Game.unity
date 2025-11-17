@@ -736,8 +736,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+      - m_Target: {fileID: 523437323}
+        m_TargetAssemblyTypeName: PauseMenuManager, Assembly-CSharp
         m_MethodName: EnableFullscreen
         m_Mode: 1
         m_Arguments:
@@ -2782,6 +2782,7 @@ MonoBehaviour:
   slider: {fileID: 985769782}
   FullscreenEnableButton: {fileID: 112344962}
   FullscreenDisableButton: {fileID: 2113642072}
+  musicAudio: {fileID: 0}
 --- !u!1 &524931390 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9154215057541871321, guid: 2554008d6447a2540b44e55f0c0b576e, type: 3}
@@ -7417,6 +7418,7 @@ MonoBehaviour:
   slider: {fileID: 0}
   FullscreenEnableButton: {fileID: 0}
   FullscreenDisableButton: {fileID: 0}
+  musicAudio: {fileID: 0}
 --- !u!4 &1280479724 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 283503573993715682, guid: f61f7f7b21ff89f47a28512ee0649d57, type: 3}
@@ -10300,8 +10302,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+      - m_Target: {fileID: 523437323}
+        m_TargetAssemblyTypeName: PauseMenuManager, Assembly-CSharp
         m_MethodName: DisableFullscreen
         m_Mode: 1
         m_Arguments:
