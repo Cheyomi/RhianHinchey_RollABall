@@ -12,6 +12,9 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 5f;
     public TMP_Text countText;
 
+
+    public PickupSpawner spawner;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -26,7 +29,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (Time.timeScale > 0f &&  Input.GetKeyDown(KeyCode.Space))
+        if (Time.timeScale > 0f && Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
         }
@@ -76,9 +79,23 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("PickUp"))
         {
-            other.gameObject.SetActive(false);
+
             count++;
             UpdateCountText();
+
+
+            Destroy(other.gameObject);
+
+
+            if (spawner == null)
+            {
+                spawner = FindObjectOfType<PickupSpawner>();
+            }
+
+            if (spawner != null)
+            {
+                spawner.ScheduleNextSpawn();
+            }
         }
     }
 
