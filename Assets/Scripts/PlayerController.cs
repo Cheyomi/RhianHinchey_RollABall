@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
 
     void UpdateCountText()
     {
-        countText.text = "Count: " + count.ToString();
+        countText.text = ": " + count.ToString();
     }
 
     void Update()
